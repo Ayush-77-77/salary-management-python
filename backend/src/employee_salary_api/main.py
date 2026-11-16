@@ -1,11 +1,15 @@
 from fastapi import FastAPI
 
+from employee_salary_api.core.config import get_settings
+
+settings = get_settings()
+
 app = FastAPI(
-    title="Employee Salary API",
+    title=settings.app_name,
     version="0.1.0",
 )
 
 
 @app.get("/health")
 def health_check() -> dict[str, str]:
-    return {"status": "ok"}
+    return {"status": "ok", "environment": settings.environment}
